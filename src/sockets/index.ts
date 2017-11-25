@@ -1,19 +1,20 @@
 import * as socketio from 'socket.io';
 import {todosWs} from './todos.ws';
+import {auth} from './auth';
+import {chatroomsWS} from './chatrooms.ws';
 import * as socketAuth from 'socketio-auth';
+import * as jwt from 'jsonwebtoken';
+import {knex} from './knex';
 export const socketServer = (server) => {
     let io = socketio(server);
- socketAuth(io, {
-   authenticate: function(socket, data, callback) {
-     console.log('authent process');
-     var username = data.username;
-     var password = data.password;
-     
-     return callback(null, {token: 5});
-   }
- })
+
+
+
     io.on('connection', (socket) => {
-        console.log('Connected')
+        // io.emit('message', {message: 'yo'})
+        console.log('connection')
     });
-    let todos = todosWs(io);
+    // let todos = todosWs(io);
+    let authenticate = auth(io);
+    let chatrooms = chatroomsWS(io);
 }

@@ -11,18 +11,7 @@ dotenv.config();
 let app = express();
 let server = new Server(app);
 let io = socketServer(server);
- // socketAuth(io, {
- //   authenticate: function(socket, data, callback) {
- //     console.log('authent process');
- //     var username = data.username;
- //     var password = data.password;
 
- //     return callback(null, true);
- //   }
- // })
-//  app.set('views', path.join(__dirname, 'views'));
-//  app.engine('html', require('ejs').renderFile);
-//  app.set("view engine", 'html');
 
  app.use(bodyParser.urlencoded({
      extended: true

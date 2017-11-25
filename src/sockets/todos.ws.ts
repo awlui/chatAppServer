@@ -5,19 +5,19 @@ export let todosWs = function(io) {
         socket.on('getAllTodos', function() {
             dispatchAll(socket);
         });
-        socket.on('saveTodo', function(todo) {
-            todosDB.saveTodo(todo, function(err, data) {
+        socket.on('saveTodo', function({data: todo}) {
+            todosDB.saveTodo(todo, function(err, {data}) {
                 if (err) throw err;
                 dispatchAll(socket);
             });
         });
-        socket.on('updateTodo', function(data) {
+        socket.on('updateTodo', function({data}) {
             todosDB.updateTodo(data, function(err, data) {
                 if (err) throw err;
                 dispatchAll(socket);
             });
         });
-        socket.on('deleteTodo', function(data) {
+        socket.on('deleteTodo', function({data}) {
             todosDB.deleteTodo(data.id, function(err, data) {
                 if (err) throw err;
                 dispatchAll(socket);
@@ -25,6 +25,7 @@ export let todosWs = function(io) {
         });
         dispatchAll(socket);
     });
+
 function dispatchAll(socket) {
 
     todosDB.getAllTodos(function(err, data) {
